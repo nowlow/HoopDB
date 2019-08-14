@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://i.imgur.com/RpKi5Kl.png" width=300 />
+    <img src="http://naoufel.space/images/hoop/logo_white.png" width=300 />
 </p>
 
 # HoopDB
