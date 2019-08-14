@@ -57,6 +57,6 @@ It may be obvious but don't use that database model in production.<br>
 If there is any issue, notice me on the issue section, by mail at `contact@naoufel.space` or by discord `Nowlow#4428`.<br>
 
 ## Licence
-[MIT](http://github.com/nowlow/HoopDB/LICENCE)
+[MIT](LICENSE)
 
 <img src="http://naoufel.space/images/hoop/logo_black_nt.svg" width=30 />
