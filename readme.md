@@ -1,10 +1,12 @@
 <p align="center">
-    <img src="https://i.imgur.com/RpKi5Kl.png" width=300 />
+    <img src="http://naoufel.space/images/hoop/logo_white.png" width=300 />
 </p>
 
 # HoopDB
 
 HoopDB is a NoSQL database model made in node with no dependencies
+
+Complete documentation can be found [here](http://naoufel.space/hoop)
 
 ## Getting started
 ```
@@ -55,4 +57,6 @@ It may be obvious but don't use that database model in production.<br>
 If there is any issue, notice me on the issue section, by mail at `contact@naoufel.space` or by discord `Nowlow#4428`.<br>
 
 ## Licence
-Idk how to get one but credit me
+[MIT](LICENSE)
+
+<img src="http://naoufel.space/images/hoop/logo_black_nt.svg" width=30 />
