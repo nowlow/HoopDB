@@ -12,7 +12,7 @@ $ npm install hoopdb
 Create a `.js` file for exemple `index.js`
 
 ###### index.js
-```javascript=
+```javascript
 var path = require('path')
 var hoopdb = require('hoopdb')
 
