@@ -1,0 +1,25 @@
+{
+  "name": "hoopdb",
+  "version": "1.0.0",
+  "description": "NoSQL db made in 4 hours",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nowlow/HoopDB.git"
+  },
+  "keywords": [
+    "NoSQL",
+    "Hoop",
+    "db",
+    "database"
+  ],
+  "author": "naoufeljs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nowlow/HoopDB/issues"
+  },
+  "homepage": "https://github.com/nowlow/HoopDB#readme"
+}
