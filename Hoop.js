@@ -14,7 +14,7 @@ class Hoop {
 
         this.closeTable = function(table) {
             table.close(true)
-            this.openTables = this.openTables.filter(function(value, index, arr) {
+            this.openTables = this.openTables.filter(function(value) {
                 return value != table
             })
         }
