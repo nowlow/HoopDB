@@ -6,6 +6,8 @@
 
 HoopDB is a NoSQL database model made in node with no dependencies
 
+Complete documentation can be found [here](http://naoufel.space/hoop)
+
 ## Getting started
 ```
 $ mkdir my_awesome_project && cd my_awesome_project
