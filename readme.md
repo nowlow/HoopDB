@@ -1,4 +1,7 @@
-# HoopDB
+<p align="center">
+    <img src="https://i.imgur.com/RpKi5Kl.png" width=300 />
+</p>
+---
 
 HoopDB is a NoSQL database model made in node with no dependencies
 
