@@ -50,9 +50,9 @@ db.getTable('hello').then(table => { // Exemple get or create a table called 'he
 ```
 
 ## Notes
-This project has been made in 4 hours (if we take out launch time and writing this readme)
-It may be obvious but don't use that database model in production
-If there is any issue, notice me on the issue section, by mail at `contact@naoufel.space` or by discord `Nowlow#4428`
+This project has been made in 4 hours (if we take out launch time and writing this readme).<br>
+It may be obvious but don't use that database model in production.<br>
+If there is any issue, notice me on the issue section, by mail at `contact@naoufel.space` or by discord `Nowlow#4428`.<br>
 
 ## Licence
 Idk how to get one but credit me
