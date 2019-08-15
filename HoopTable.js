@@ -27,8 +27,6 @@ class HoopTable extends EventEmitter {
             }
             data = _this.decode(data, _this.token)
 
-            console.log(data)
-
             try {
                 _this.data = JSON.parse(data)
                 if (!_this.data.HoopTableName || _this.data.HoopTableName != _this.name)
@@ -133,17 +131,17 @@ class HoopTable extends EventEmitter {
         }
 
         this.encode = function(str, token) {
-            var output = Buffer.alloc(str.length)
+            let output = Buffer.alloc(str.length)
         
-            for (var i = 0; i < str.length; i ++) 
+            for (let i = 0; i < str.length; i ++) 
                 output[i] = str.charCodeAt(i) + token.charCodeAt(i % token.length)
             return output
         }
         
         this.decode = function(buffer, token) {
-            var output = ''
+            let output = ''
         
-            for (var i = 0; i < buffer.length; i ++)
+            for (let i = 0; i < buffer.length; i ++)
                 output += String.fromCharCode(buffer[i] - token.charCodeAt(i % token.length))
             return output
         }
