@@ -1,3 +1,4 @@
+let fs = require('fs')
 let HoopTable = require('./HoopTable')
 
 class Hoop {
@@ -21,6 +22,26 @@ class Hoop {
 
         this.close = function() {
             this.openTables.forEach(table => { table.close(true) })
+        }
+
+        this.listTables = function() {
+            return new Promise(function(resolve, reject) {
+                fs.readdir(_this.hoopDBPath, function(err, files) {
+                    if (err) reject(err)
+                    else {
+                        let names = []
+                        files.forEach(file => {
+                            let sp = file.split('.')
+
+                            if (sp.length >= 2 && sp[sp.length - 1] === 'htable') {
+                                sp.pop()
+                                names.push(sp.join('.'))
+                            }
+                        })
+                        resolve(names)
+                    }
+                })
+            })
         }
 
         this.getTable = function(name) {
