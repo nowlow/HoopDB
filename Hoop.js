@@ -1,5 +1,6 @@
 let fs = require('fs')
 let HoopTable = require('./HoopTable')
+let path = require('path')
 
 class Hoop {
     constructor(hoopDBPath) {
@@ -66,6 +67,18 @@ class Hoop {
                     reject(err)
                 })
             })
+        }
+
+        this.deleteTable = function(name) {
+            try {
+                fs.unlinkSync(path.join(_this.hoopDBPath, name) + '.htable')
+                this.openTables.filter(function(table) {
+                    return table.checkname !== name
+                })
+                return true
+            } catch(e) {
+                return false
+            }
         }
     }
 }

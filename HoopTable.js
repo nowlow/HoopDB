@@ -6,11 +6,11 @@ class HoopTable extends EventEmitter {
     constructor(name, filepath, token) {
         super()
 
-        this.filename = name
+        this.name = name
         this.path = path.join(filepath, name + '.htable')
         while (name.length < token.length)
             name += name
-        this.name = name, token
+        this.checkname = name
         this.data = null
         this.token = token
 
@@ -18,7 +18,7 @@ class HoopTable extends EventEmitter {
 
         fs.readFile(this.path, function(err, data) {
             if (err) {
-                data = _this.encode(JSON.stringify({HoopTableName: _this.name, table:[]}), _this.token)
+                data = _this.encode(JSON.stringify({HoopTableName: _this.checkname, table:[]}), _this.token)
                 fs.writeFile(_this.path, data, function(err) {
                     if (err) {
                         _this.emit('load-error', err)
@@ -29,7 +29,7 @@ class HoopTable extends EventEmitter {
 
             try {
                 _this.data = JSON.parse(data)
-                if (!_this.data.HoopTableName || _this.data.HoopTableName != _this.name)
+                if (!_this.data.HoopTableName || _this.data.HoopTableName != _this.checkname)
                     _this.emit('load-error', '[htable:' + _this.filename + '] wrong token : no name')
                 else
                     _this.emit('loaded')
@@ -130,6 +130,17 @@ class HoopTable extends EventEmitter {
             }
         }
 
+        this.truncate = function() {
+            this.data.table = []
+            let data = this.encode(this.data.toString(), this.token)
+
+            fs.writeFile(_this.path, data, function(err) {
+                if (err) {
+                    _this.emit('load-error', err)
+                }
+            })
+        }
+
         this.encode = function(str, token) {
             let output = Buffer.alloc(str.length)
         
@@ -137,7 +148,7 @@ class HoopTable extends EventEmitter {
                 output[i] = str.charCodeAt(i) + token.charCodeAt(i % token.length)
             return output
         }
-        
+
         this.decode = function(buffer, token) {
             let output = ''
         
