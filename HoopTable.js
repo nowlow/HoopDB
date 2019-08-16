@@ -62,14 +62,19 @@ class HoopTable extends EventEmitter {
             this.data.table.push(contentObject)
         }
 
-        this.updateLine = function(contentObject, criteria) {
+        this.updateLines = function(contentObject, criteria) {
+            let selected = this.select(criteria)
+
+            selected.forEach(line => {
+                Object.assign(line, contentObject)
+            })
+        }
+
+        this.updateLineOnce = function(contentObject, criteria) {
             let selected = this.selectOnce(criteria)
 
-            let source = {...selected}
-
             if (selected) {
-                selected = Object.assign(selected, contentObject)
-                this.replaceLine(selected, source)
+                Object.assign(selected, contentObject)
             }
         }
 
