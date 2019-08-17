@@ -15,6 +15,8 @@ $ mkdir db
 $ npm install hoopdb
 ```
 
+if you want to use it in other languages or maybe use an API: one is avaliable [here](http://github.com/nowlow/HoopDB-API)
+
 Create a `.js` file for exemple `index.js`
 
 ###### index.js
