@@ -1,17 +1,52 @@
 let fs = require('fs')
 let HoopTable = require('./HoopTable')
 let path = require('path')
+let {encode, decode} = require('./HoopCode')
 
 class Hoop {
     constructor(hoopDBPath) {
         this.openTables = []
         this.hoopDBPath = hoopDBPath
         this.token = null
+        this.connected = false
         
         let _this = this
 
         this.connect = function(token) {
-            _this.token = token
+            return new Promise(function(resolve, reject) {
+                if (_this.connected) reject('You are already logged-in')
+
+                let name = _this.hoopDBPath.split('/')[_this.hoopDBPath.split('/').length - 1]
+                let config = path.join(_this.hoopDBPath, '.' + name + '.hconfig')
+
+                if (!fs.existsSync(_this.hoopDBPath))
+                    reject("Database folder do not exists")
+                while (name.length < token.length)
+                    name += name
+                fs.readFile(config, function(error, data) {
+                    if (error) {
+                        let file = JSON.stringify({"hoopDBName" : name})
+                        fs.writeFile(config, encode(file, token), function(error) {
+                            if (error) reject("Can't create config file")
+                            else {
+                                _this.connected = true
+                                _this.token = token
+                                resolve(true)
+                            }
+                        })
+                    } else {
+                        try {
+                            if (JSON.parse(decode(data, token)).hoopDBName === name) {
+                                _this.connected = true
+                                _this.token = token
+                                resolve(true)
+                            } else reject("Can't connect to database")
+                        } catch (e) {
+                            reject("Can't connect to database")
+                        }
+                    }
+                })
+            })
         }
 
         this.closeTable = function(table) {
@@ -26,7 +61,10 @@ class Hoop {
         }
 
         this.listTables = function() {
+            
             return new Promise(function(resolve, reject) {
+                if (!_this.connected) reject('You are not logged-in')
+
                 fs.readdir(_this.hoopDBPath, function(err, files) {
                     if (err) reject(err)
                     else {
@@ -47,8 +85,7 @@ class Hoop {
 
         this.getTable = function(name) {
             return new Promise(function(resolve, reject) {
-                if (!_this.token)
-                    reject('You are not logged-in')
+                if (!_this.token || !_this.connected) reject('You are not logged-in')
 
                 let usertable = null
 
@@ -70,6 +107,8 @@ class Hoop {
         }
 
         this.deleteTable = function(name) {
+            if (!this.connected) return false
+
             try {
                 fs.unlinkSync(path.join(_this.hoopDBPath, name) + '.htable')
                 this.openTables.filter(function(table) {

@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const EventEmitter = require('events')
+let {encode, decode} = require('./HoopCode')
 
 class HoopTable extends EventEmitter {
     constructor(name, filepath, token) {
@@ -18,14 +19,14 @@ class HoopTable extends EventEmitter {
 
         fs.readFile(this.path, function(err, data) {
             if (err) {
-                data = _this.encode(JSON.stringify({HoopTableName: _this.checkname, table:[]}), _this.token)
+                data = encode(JSON.stringify({HoopTableName: _this.checkname, table:[]}), _this.token)
                 fs.writeFile(_this.path, data, function(err) {
                     if (err) {
                         _this.emit('load-error', err)
                     }
                 })
             }
-            data = _this.decode(data, _this.token)
+            data = decode(data, _this.token)
 
             try {
                 _this.data = JSON.parse(data)
@@ -128,7 +129,7 @@ class HoopTable extends EventEmitter {
 
         this.close = function(save=true) {
             if (save) {
-                fs.writeFile(this.path, this.encode(JSON.stringify(this.data), this.token), function(err) {
+                fs.writeFile(this.path, encode(JSON.stringify(this.data), this.token), function(err) {
                     if (err)
                         console.error(err)
                 })
@@ -137,29 +138,13 @@ class HoopTable extends EventEmitter {
 
         this.truncate = function() {
             this.data.table = []
-            let data = this.encode(this.data.toString(), this.token)
+            let data = encode(this.data.toString(), this.token)
 
             fs.writeFile(_this.path, data, function(err) {
                 if (err) {
                     _this.emit('load-error', err)
                 }
             })
-        }
-
-        this.encode = function(str, token) {
-            let output = Buffer.alloc(str.length)
-        
-            for (let i = 0; i < str.length; i ++) 
-                output[i] = str.charCodeAt(i) + token.charCodeAt(i % token.length)
-            return output
-        }
-
-        this.decode = function(buffer, token) {
-            let output = ''
-        
-            for (let i = 0; i < buffer.length; i ++)
-                output += String.fromCharCode(buffer[i] - token.charCodeAt(i % token.length))
-            return output
         }
     }
 }
