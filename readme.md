@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="http://naoufel.space/images/hoop/logo_white.png" width=300 />
+    <img src="https://naoufel.space/images/hoop/logo_white.png" width=300 />
 </p>
 
 # HoopDB
@@ -63,4 +63,4 @@ If there is any issue, notice me on the issue section, by mail at `contact@naouf
 ## Licence
 [MIT](LICENSE)
 
-<img src="http://naoufel.space/images/hoop/logo_black_nt.svg" width=30 />
+<img src="https://naoufel.space/images/hoop/logo_black_nt.svg" width=30 />
