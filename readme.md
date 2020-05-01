@@ -21,38 +21,28 @@ Create a `.js` file for exemple `index.js`
 
 ###### index.js
 ```javascript
-var path = require('path')
-var hoopdb = require('hoopdb')
+const Hoop = require('hoopdb')
+const path = require('path')
 
-var db = new hoopdb(path.join(__dirname, 'db')) // path to your database
+let db = new Hoop(path.join(__dirname, "db"))
 
-db.connect('token').then(() => { // This token will be used to encode a table when it's created and to decode one when it's loaded
-    db.getTable('hello').then(table => { // Exemple get or create a table called 'hello'
-        table.addLinePrimary({ // Adds a line once to your database, if this one exists, will do nothing
-            name: "Naoufel Berrada",
-            age: 18,
-            mail: "contact@naoufel.space"
-        })
+async function main()
+{
+    await db.connect("token")
+    let table = await db.getTable('hello')
 
-        table.addLinePrimary({
-            name: "Linus Torvalds",
-            age: 49,
-            mail: "linus@linux.org"
-        })
+    table.createLinePrimary({ name: "naoufel", email: "contact@naoufel.space", age: 19 })
+    
+    console.log(table.getData())
+    
+    table.updateLines({ name: "naoufel"}, { age: 20 })
+    
+    console.log(table.getData())
+}
 
-        console.log('table data first time :\n', table.getData())
-
-        table.updateLine({mail: "linus@naoufel.space"}, {name: "Linus Torvalds"}) // Updates mail at 'Linus Torvalds' line
-
-        console.log('\ntable data second time :\n', table.getData()) // The data may have changed
-
-        db.closeTable(table) // Save the table
-    }, error => {
-        console.error(error) // Print if there is an error when reading the table
-    })
-}, error => {
-    console.log(error) // If you can't connect to the database
-})
+main()
+.catch(error => console.error(error))
+.finally(() => { db.close() })
 ```
 
 ## Notes
