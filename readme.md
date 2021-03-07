@@ -53,4 +53,4 @@ If there is any issue, notice me on the issue section, by mail at `contact@naouf
 ## Licence
 [MIT](LICENSE)
 
-<img src=".github/logo_black_nt.svg" width=30 />
+<img src=".github/logo_black_nt.svg" width=40 />
